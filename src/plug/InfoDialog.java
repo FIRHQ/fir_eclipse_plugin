@@ -1,57 +1,20 @@
-/*
- * Created on 2004-9-25
- *
- * TODO To change the template for this generated file go to
- * Window - Preferences - Java - Code Style - Code Templates
- */
+
 package plug;
 
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.InputStreamReader;
-import java.net.URL;
 import java.util.ArrayList;
 
 import javax.swing.*;
 
 import net.sf.json.JSONObject;
-import net.sf.json.JSONSerializer;
 
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IWorkspace;
-import org.eclipse.core.resources.IWorkspaceRoot;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.ui.ISelectionService;
-import org.eclipse.ui.internal.Workbench;
-import org.eclipse.core.internal.resources.WorkspaceRoot;
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.IWorkspace;
-import org.eclipse.core.resources.IWorkspaceRoot;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.jface.action.IAction;
-import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.ISelectionService;
-import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.IWorkbenchWindowActionDelegate;
-import org.eclipse.ui.internal.Workbench;
-import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.jface.fieldassist.DecoratedField;
-import org.eclipse.jface.fieldassist.TextControlCreator;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.*;
-import org.eclipse.swt.widgets.*;
+
 
 /**
- * @author zhaoyong
+ * @author 
  *
  * TODO To change the template for this generated type comment go to
  * Window - Preferences - Java - Code Style - Code Templates
@@ -62,13 +25,25 @@ public class InfoDialog extends JDialog implements ActionListener
     
     String city="";
     String upLoad_url = "http://fir.im/api/v2/app/info/[appid]?type=android&token=[token]";
-    private JPanel jPanel = null;
+    private JPanel mainPanel = null;
     private JButton jbtn = null;
     private JTextArea jt = null;
-    private JList jlist=null;
-    private ArrayList al = new ArrayList();
     private JTextArea absolutPathJa = null;
     private JButton absouJbtn = null;
+    
+    private JPanel loginPanel = null;//登录panel
+    private JPanel appInfoPanel = null;//APP信息panel
+    private JPanel userInfoPanel = null;//用户信息panel
+    
+    private JLabel loginLabel = null;
+    private JTextArea loginText = null;
+    private JButton loginBtn = null;
+    
+    private JLabel  appLabel = null;
+    private JButton choseFileBtn = null;
+    private JFileChooser appFileChoser = null;
+    private JTextArea appPathText = null;
+    
     /**
      * This method initializes 
      * 
@@ -76,7 +51,6 @@ public class InfoDialog extends JDialog implements ActionListener
     public InfoDialog(ArrayList al) 
     {
         super();
-        this.al = al;
         initialize();
     }
     /**
@@ -88,78 +62,41 @@ public class InfoDialog extends JDialog implements ActionListener
     {
 
         this.setContentPane(getJEditorPane());
-        JLabel jlable_token = new JLabel("开发者Token");
-        jt = new JTextArea(20,20);
-        jt.setBorder (BorderFactory.createEmptyBorder (1,1,1,5));
-        jt.setColumns (30); 
-        jt.setRows (0);
-        this.jPanel.add(jlable_token);
-        this.jPanel.add(jt);
-        jbtn = new JButton("确定");
-        this.jPanel.add(jbtn);
-        jbtn.addActionListener(this);
-//        jlist = new JList([1,2,3]);
-//        this.jPanel.add(jlist);
+        initPanel();
+        initAppInfoPanel();
+        initLoginPanel();
         
-        absolutPathJa = new JTextArea(20,20);
-        absolutPathJa.setBorder (BorderFactory.createEmptyBorder (1,1,1,5));
-        absolutPathJa.setColumns (30); 
-        absolutPathJa.setRows (0);
-        JLabel jlable_path = new JLabel("apk的path");
-        jlable_path.setLocation(0,100);
-        this.jPanel.add(jlable_path);
-        this.jPanel.add(absolutPathJa);
-        absouJbtn = new JButton("Ok");
-        this.jPanel.add(absouJbtn);
-        absouJbtn.addActionListener(this);
-        
-        String _url = upLoad_url.replace("[appid]", "a.b.c");
-        _url = _url.replace("[token]", "token");
-        String sr=HttpRequest.sendGet(_url,"");
-        
-        JSONObject jsonObject = JSONObject.fromString(sr);
-        
+        //监听事件
+        addListioner();
+       
+//        JLabel jlable_token = new JLabel("开发者Token");
+//        jt = new JTextArea(20,20);
+//        jt.setBorder (BorderFactory.createEmptyBorder (1,1,1,5));
+//        jt.setColumns (30); 
+//        jt.setRows (0);
+//        this.mailPanel.add(jlable_token);
+//        this.mailPanel.add(jt);
+//        jbtn = new JButton("确定");
+//        this.mailPanel.add(jbtn);
+//        jbtn.addActionListener(this);
 //        
+//        absolutPathJa = new JTextArea(20,20);
+//        absolutPathJa.setBorder (BorderFactory.createEmptyBorder (1,1,1,5));
+//        absolutPathJa.setColumns (30); 
+//        absolutPathJa.setRows (0);
+//        JLabel jlable_path = new JLabel("apk的path");
+//        jlable_path.setLocation(0,100);
+//        this.mailPanel.add(jlable_path);
+//        this.mailPanel.add(absolutPathJa);
+//        absouJbtn = new JButton("Ok");
+//        this.mailPanel.add(absouJbtn);
+//        absouJbtn.addActionListener(this);
 //        
-//        try
-//        {
-//            //����URL����
-//            URL url 
-//            	=new URL("http://weather.news.sina.com.cn//cgi-bin/figureWeather/simpleSearch.cgi?city="
-//            			+city);
-//           
-//            
-//            String temp="";
-//            
-//            BufferedReader in 
-//            	= new BufferedReader(new InputStreamReader(url.openStream()));
-//            //ʹ��openStream�õ�һ���������ɴ˹���һ��BufferedReader����
-//            String inputLine;
-//            //�����������ϵĶ���ݣ�ֱ������Ϊֹ
-//            while ((inputLine = in.readLine()) != null)
-//                temp=temp+inputLine+"\n";
-//            //�ر�������
-//            in.close();  
-//            
-//            String  weather	
-//            	=temp.substring ( temp.indexOf( "<body"),
-//                                  temp.lastIndexOf( "body>")+5);
-//            // Font f=new  Font("SansSerif", 0, 12);
-//            //  this.jEditorPane.setFont( f);
-//            this.jEditorPane .setText(weather);
-            //  this.jEditorPane .setText("<a href=aa">xxxxxxxxxxxx</a>");
-            
-//        } 
-//        catch (Exception e)
-//        {
-//            // TODO Auto-generated catch block
-//            e.printStackTrace();
-//        } 
-//        this.setTitle("hello FIR.im");
-//        this.setSize(400, 166);
-//        for(int i=0;i<this.al.size();i++){
-//        	System.out.print("+++++++++++++++"+this.al.get(i));
-//        }
+//        String _url = upLoad_url.replace("[appid]", "a.b.c");
+//        _url = _url.replace("[token]", "token");
+//        String sr=HttpRequest.sendGet(_url,"");
+//        
+//        JSONObject jsonObject = JSONObject.fromString(sr);
         
         
     }
@@ -178,16 +115,65 @@ public class InfoDialog extends JDialog implements ActionListener
      */    
     private JPanel getJEditorPane() 
     {
-//        if (jEditorPane == null) 
-//        {
-//            jEditorPane = new JEditorPane();
-//            jEditorPane.setContentType( "text/html");
-//        }
-//        return jEditorPane;
-    	if(jPanel == null){
-    		jPanel = new JPanel();
+    	if(mainPanel == null){
+    		mainPanel = new JPanel();
+    		mainPanel.setLayout(new GridLayout(3,0)); 
     	}
-    	return jPanel;
+    	return mainPanel;
+    }
+    
+    /**
+     * 初始化mainPanel
+     */
+    private void initPanel(){
+    	loginPanel = new JPanel();
+    	appInfoPanel = new JPanel();
+    	userInfoPanel = new JPanel();
+    	mainPanel.add(loginPanel);
+    	mainPanel.add(appInfoPanel);
+    	mainPanel.add(userInfoPanel);
+    }
+    
+    /**
+     * 初始化LoginPanel
+     */
+    private void initLoginPanel(){
+    	loginLabel = new JLabel("请输入Token");
+    	loginText = new JTextArea(0,30);
+    	loginBtn = new JButton("确定");
+    	loginPanel.add(loginLabel);
+    	loginPanel.add(loginText);
+    	loginPanel.add(loginBtn);
+    }
+   
+    /**
+     * 初始化文件选择器
+     */
+    private void initFileChoser(){
+    	appFileChoser = new JFileChooser("D:\\");
+    	appFileChoser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+    	appFileChoser.setDialogTitle("Select path to save");
+    	int returnVal = appFileChoser.showOpenDialog(appFileChoser);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+        	String path = appFileChoser.getSelectedFile().getAbsolutePath();
+        	System.out.print("文件选择的路径:"+path);
+        	appPathText.setText(path);
+        }
+    }
+    /**
+     * 初始化appInfoPanel
+     */
+    private void initAppInfoPanel(){
+    	//initFileChoser();
+    	appPathText = new JTextArea();
+    	choseFileBtn = new JButton("选择工程目录");
+    	appInfoPanel.add(choseFileBtn);
+    	appInfoPanel.add(appPathText);
+    }
+    
+    private void addListioner(){
+    	loginBtn.addActionListener(this);
+     	choseFileBtn.addActionListener(this);
     }
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -204,6 +190,17 @@ public class InfoDialog extends JDialog implements ActionListener
     		File f = new File(path);
     		
         }
+        
+        //登录按钮
+        if(e.getSource()==loginBtn){
+        }
+        //选择文件按钮
+        if(e.getSource()==choseFileBtn){
+        	initFileChoser();
+//        	appPathText.setText(path);
+        }
+        
+        
 	}
 	
  
