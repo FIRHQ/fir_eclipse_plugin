@@ -2,14 +2,19 @@
 package plug;
 
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 
 import javax.swing.*;
 
+import Util.HttpRequest;
 import Util.Util;
+import model.User;
 import net.sf.json.JSONObject;
 
 
@@ -45,6 +50,13 @@ public class InfoDialog extends JDialog implements ActionListener
     private JFileChooser appFileChoser = null;
     private JTextArea appPathText = null;
     
+    private ImageIcon userAvatarIcon = null;
+    private JLabel userNameLabel = null;
+    private JLabel imageLabel = null;
+    private JLabel userEmailLabel = null;
+    private JLabel userIdLabel = null;
+    
+    private User user = null;
     /**
      * This method initializes 
      * 
@@ -63,13 +75,20 @@ public class InfoDialog extends JDialog implements ActionListener
     {
 
         this.setContentPane(getJEditorPane());
+        initUser();
+        
         initPanel();
         initAppInfoPanel();
         initLoginPanel();
-        
+        initUserInfoPanel();
         //监听事件
         addListioner();
-       
+        
+
+        System.out.println(user.name);
+        System.out.println(user.avatar);
+        System.out.println(user.token);
+        System.out.println(user.userId);
 //        JLabel jlable_token = new JLabel("开发者Token");
 //        jt = new JTextArea(20,20);
 //        jt.setBorder (BorderFactory.createEmptyBorder (1,1,1,5));
@@ -102,12 +121,12 @@ public class InfoDialog extends JDialog implements ActionListener
         
     }
     
-    //登陆
-    private String Login(String email,String password){
-        String sr=HttpRequest.sendPost("http://fir.im/api/v2/user/signin", "email=email&password=password");
-        
-        System.out.println(sr);
-        return sr;
+    /**
+     *初始化用户
+     */
+    private void initUser(){
+        this.user = new User();
+        user.login("jotg9wGkqOFk9cpfPej1s1dvYEXFfMaMY318OlJq");    	
     }
     /**
      * This method initializes jEditorPane	
@@ -177,6 +196,36 @@ public class InfoDialog extends JDialog implements ActionListener
     	appInfoPanel.add(appPathText);
     }
     
+    
+    /**
+     * 初始化用户信息panel
+     */
+    private void initUserInfoPanel(){
+    	this.userInfoPanel.setLayout(new GridLayout(2,2)); 
+    	try {
+			this.userAvatarIcon = new ImageIcon(new URL(this.user.avatar));
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	this.userNameLabel = new JLabel("用户名："+this.user.name);
+    	this.userInfoPanel.add(this.userNameLabel);
+    	this.imageLabel = new JLabel();
+    	this.imageLabel.setSize(30, 30);
+    	this.imageLabel.setBounds(0,0,20,20);
+    	this.imageLabel.setIcon(this.userAvatarIcon);
+    	this.userAvatarIcon.setImage(this.userAvatarIcon.getImage().getScaledInstance(50, 50,
+    		    Image.SCALE_DEFAULT));
+    	this.userInfoPanel.add(this.imageLabel);
+    	this.userEmailLabel = new JLabel("邮箱："+user.email);
+    	this.userIdLabel = new JLabel("用户ID："+user.userId);
+    	this.userInfoPanel.add(this.userEmailLabel);
+    	this.userInfoPanel.add(this.userIdLabel);
+    }
+    
+    /**
+     * 监听事件
+     */
     private void addListioner(){
     	loginBtn.addActionListener(this);
      	choseFileBtn.addActionListener(this);
@@ -184,26 +233,13 @@ public class InfoDialog extends JDialog implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-        if(e.getSource()==jbtn) {
-            //你要处理的事件
-    		String token = jt.getText();
-    		System.out.print("token" + token);
-        }
-        if(e.getSource()==absouJbtn) {
-            //你要处理的事件
-    		String path = absolutPathJa.getText();
-    		System.out.print("绝对路径" + path);
-    		File f = new File(path);
-    		
-        }
-        
         //登录按钮
         if(e.getSource()==loginBtn){
+        	
         }
         //选择文件按钮
         if(e.getSource()==choseFileBtn){
         	initFileChoser();
-//        	appPathText.setText(path);
         }
         
         
