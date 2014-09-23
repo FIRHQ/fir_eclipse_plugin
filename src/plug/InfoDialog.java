@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
+import Util.Util;
 import net.sf.json.JSONObject;
 
 
@@ -157,6 +158,11 @@ public class InfoDialog extends JDialog implements ActionListener
         if (returnVal == JFileChooser.APPROVE_OPTION) {
         	String path = appFileChoser.getSelectedFile().getAbsolutePath();
         	System.out.print("文件选择的路径:"+path);
+        	if(Util.isApkWorkSpace(path)){
+        		System.out.print("this is a apk workspace");
+        	}else{
+        		System.out.print("this is not a apk workspace");
+        	}
         	appPathText.setText(path);
         }
     }
