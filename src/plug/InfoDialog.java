@@ -12,6 +12,8 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
+import UI.LoginByToken;
+import UI.LoginPanelByEmail;
 import Util.HttpRequest;
 import Util.Util;
 import model.User;
@@ -74,21 +76,17 @@ public class InfoDialog extends JDialog implements ActionListener
     private void initialize() 
     {
 
-        this.setContentPane(getJEditorPane());
-        initUser();
-        
-        initPanel();
-        initAppInfoPanel();
-        initLoginPanel();
-        initUserInfoPanel();
-        //监听事件
-        addListioner();
+        this.setContentPane(new LoginByToken());
+//        initUser();
+//        
+//        initPanel();
+//        initAppInfoPanel();
+//        initLoginPanel();
+//        initUserInfoPanel();
+//        //监听事件
+//        addListioner();
         
 
-        System.out.println(user.name);
-        System.out.println(user.avatar);
-        System.out.println(user.token);
-        System.out.println(user.userId);
 //        JLabel jlable_token = new JLabel("开发者Token");
 //        jt = new JTextArea(20,20);
 //        jt.setBorder (BorderFactory.createEmptyBorder (1,1,1,5));
