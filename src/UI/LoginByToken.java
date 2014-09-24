@@ -14,6 +14,11 @@ import javax.swing.JTextArea;
 
 import model.User;
 
+/**
+ * 通过token来登录
+ * @author will
+ *
+ */
 public class LoginByToken extends JPanel implements ActionListener{
 
 	
