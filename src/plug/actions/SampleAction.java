@@ -2,6 +2,8 @@ package plug.actions;
 
 import javax.xml.soap.Text;
 
+import main.Main;
+
 import org.eclipse.core.internal.resources.WorkspaceRoot;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -74,9 +76,8 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 
         	System.out.print("===========");
         }
-        InfoDialog wd=new InfoDialog(arrayList);
-        wd.setSize(400, 335);
-        wd.show();
+        System.out.println();
+        Main main = new Main();
 	}
 
 	/**

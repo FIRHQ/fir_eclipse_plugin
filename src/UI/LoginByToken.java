@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
+import main.Main;
 import model.User;
 
 /**
@@ -37,6 +38,14 @@ public class LoginByToken extends JPanel implements ActionListener{
 	
 	private User user;
 	
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
 	public LoginByToken() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -106,8 +115,10 @@ public class LoginByToken extends JPanel implements ActionListener{
 			}else{
 				user = new User();
 				user.login(this.tokenTx.getText());
+				Main.user = user;
 				if(user.isLogin.equals(true)){
 					this.noticeLabel.setText("登录成功");
+					Main.LoginSuccess();
 				}else{
 					this.noticeLabel.setText("登录失败");
 				}

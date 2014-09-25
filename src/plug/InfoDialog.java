@@ -63,10 +63,11 @@ public class InfoDialog extends JDialog implements ActionListener
      * This method initializes 
      * 
      */
-    public InfoDialog(ArrayList al) 
+    public InfoDialog() 
     {
         super();
-        initialize();
+        this.setSize(400, 335);
+        //initialize();
     }
     /**
      * This method initializes this
