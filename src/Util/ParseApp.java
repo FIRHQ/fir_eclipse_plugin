@@ -149,6 +149,31 @@ public class ParseApp {
 		}
 		
 	}
+	
+	public File getAppIconFromDrable(String icon){
+		File iconFile = null;
+		File tfxh = getFile(resFile,"drawable-xhdpi");
+		File tfh = getFile(resFile,"drawable-hdpi");
+		File tfm = getFile(resFile,"drawable-mdpi");
+		File tf = getFile(resFile,"drawable");
+		
+		
+		return iconFile;
+	}
+	
+	public File parseIcon(File ic,String iname){
+		File tf = null;
+		File[] files = ic.listFiles();
+		for (File file : files) {
+			System.out.println(file.getName());
+			String name = file.getName();
+			if(name.toLowerCase().indexOf(iname)>=0){
+				tf = file;
+			}			
+		}		
+		return tf;
+	}
+	
 	public File getFile(File root,String targetName){
 		File tfile = null;
 		File[] files = root.listFiles();
