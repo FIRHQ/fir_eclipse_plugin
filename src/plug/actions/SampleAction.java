@@ -48,7 +48,8 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 	/**
 	 * The constructor.
 	 */
-    ArrayList arrayList = new ArrayList();
+    ArrayList<File> arrayList = new ArrayList();
+    
 	public SampleAction() {
 	}
 
@@ -71,6 +72,7 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
         	for(int j=0;j<fs.length;j++){
             	if(fs[j].getName().indexOf("AndroidManifest")>=0){
             		arrayList.add(file);
+            		System.out.println("============================="+file.getAbsolutePath());
             	}
             }
 
@@ -78,6 +80,7 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
         }
         System.out.println();
         Main main = new Main();
+        main.programList = arrayList;
 	}
 
 	/**
