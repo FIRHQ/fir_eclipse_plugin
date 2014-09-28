@@ -111,6 +111,8 @@ public class ParseApp {
 			this.appIcon = application.getAttribute("android:icon");
 			if(appIcon.indexOf("@drawable")>=0){
 				//去drawable中查找
+				String iconName = appIcon.substring(10,appIcon.length());
+				getAppIconFromDrable(iconName);
 			}
 
 		} catch (ParserConfigurationException e) {
@@ -157,9 +159,54 @@ public class ParseApp {
 		File tfm = getFile(resFile,"drawable-mdpi");
 		File tf = getFile(resFile,"drawable");
 		
-		
+		File _tf = getIconFromDrable(tf,icon);
+		if(_tf!=null && _tf.exists()){
+			File _iconFile = getIconFromDrable(tf,icon);
+			if(_iconFile !=null && _iconFile.exists()){
+				iconFile = _iconFile;
+			}
+		}	
+		File _tfm = getIconFromDrable(tfm,icon);
+		if(_tfm!=null && _tfm.exists()){
+			File _iconFile = getIconFromDrable(tfm,icon);
+			if(_iconFile !=null && _iconFile.exists()){
+				iconFile = _iconFile;
+			}
+		}		
+		File _tfh = getIconFromDrable(tfh,icon);
+		if(_tfh!=null && _tfh.exists()){
+			File _iconFile = getIconFromDrable(tfh,icon);
+			if(_iconFile !=null && _iconFile.exists()){
+				iconFile = _iconFile;
+			}
+		}	
+		File _tfxh = getIconFromDrable(tfxh,icon);
+		if(_tfxh!=null&&_tfxh.exists()){
+			File _iconFile = getIconFromDrable(tfxh,icon);
+			if(_iconFile !=null && _iconFile.exists()){
+				iconFile = _iconFile;
+			}
+		}
+		if(iconFile!=null&& iconFile.exists()){
+			this.appIcon = iconFile.getAbsolutePath();
+		}
 		return iconFile;
 	}
+	
+	public File getIconFromDrable(File f,String icon){
+		File iconFile = null;
+		File[] files = f.listFiles();
+		for (File file : files) {
+			System.out.println(file.getName());
+			String name = file.getName();
+			if(name.toLowerCase().indexOf(icon)>=0){
+				iconFile = file;
+			}			
+		}	
+
+		return iconFile;
+	}
+	
 	
 	public File parseIcon(File ic,String iname){
 		File tf = null;

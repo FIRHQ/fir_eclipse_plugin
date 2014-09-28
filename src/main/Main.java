@@ -38,7 +38,7 @@ public class Main {
 		
 		//test
 		mainPanel.setContentPane(new AppUI());
-		ParseApp parseApp = new ParseApp("/Users/will/job/runtime-EclipseApplication/ApiDemos");
+		
 		mainPanel.show();
 	}
 	
