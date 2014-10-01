@@ -13,6 +13,11 @@ import javax.swing.JPanel;
 
 import Util.ParseApp;
 
+/**
+ * 显示APP的Panel
+ * @author will
+ *
+ */
 public class AppUI extends JPanel {
 	private JLabel appNameK = null;
 	private JLabel appNameV = null;
@@ -38,6 +43,11 @@ public class AppUI extends JPanel {
 	
 	public AppUI(){
 	    parseApp = new ParseApp("/Users/will/job/runtime-EclipseApplication/ApiDemos");
+		init();
+	}
+	
+	public AppUI(String path){
+	    parseApp = new ParseApp(path);
 		init();
 	}
 	

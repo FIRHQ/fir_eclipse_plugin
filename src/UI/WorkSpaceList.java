@@ -72,7 +72,8 @@ public class WorkSpaceList extends JPanel implements ListSelectionListener {
 		if (e.getValueIsAdjusting() == false) 
 		{
 			ListModel curLM = (ListModel) this.jList.getSelectedValue();
-			
+			File curF = curLM.file;
+			Main.selectApp(curF.getAbsolutePath());
 		}
 		
 	}

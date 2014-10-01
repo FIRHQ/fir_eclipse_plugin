@@ -3,6 +3,8 @@ package main;
 import java.io.File;
 import java.util.ArrayList;
 
+import javax.swing.JPanel;
+
 import UI.AppUI;
 import UI.LoginByToken;
 import UI.WorkSpaceList;
@@ -34,10 +36,8 @@ public class Main {
 		loginByTokenPanel = new LoginByToken();
 		
 		//先进入LoginPanel页面
-		//mainPanel.setContentPane(loginByTokenPanel);
+		Main.setCurrentPanel(loginByTokenPanel);
 		
-		//test
-		mainPanel.setContentPane(new AppUI());
 		
 		mainPanel.show();
 	}
@@ -50,6 +50,23 @@ public class Main {
 		userUI = new UI.User();
 		mainPanel.setContentPane(new WorkSpaceList());
 		
+	}
+	
+	/**
+	 * 显示Panel
+	 * @param jp
+	 */
+	public  static void setCurrentPanel(JPanel jp){
+		Main.mainPanel.setContentPane(jp);
+		Main.mainPanel.show();
+	}
+	
+	/**
+	 * 选中APP时执行的操作
+	 * @param path
+	 */
+	public static void selectApp(String path){
+		Main.setCurrentPanel(new AppUI(path));
 	}
 	
 }
