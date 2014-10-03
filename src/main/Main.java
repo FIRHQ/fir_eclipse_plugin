@@ -1,13 +1,20 @@
 package main;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
+import net.sf.json.JSONObject;
+import net.sf.json.JSONSerializer;
+
+import org.eclipse.core.runtime.Platform;
+
 import UI.AppUI;
 import UI.LoginByToken;
 import UI.WorkSpaceList;
+import Util.FileOperate;
 import Util.ParseApp;
 import plug.InfoDialog;
 import model.User;
@@ -25,18 +32,29 @@ public class Main {
 	public static ArrayList<File> programList = new ArrayList();
 	
 	private LoginByToken loginByTokenPanel = null;
-	public Main(){
+	public Main(ArrayList<File> pl){
+		this.programList = pl;
 		init();
 	}
 	
 	public void init(){
 		user = new User();
 		mainPanel = new InfoDialog();
+		String data = FileOperate.readFileByLines(Util.Util.getIconFilePath("/data/user.data"));
+		if(!data.isEmpty()){
+			JSONObject  jo = JSONObject.fromString(data);
+			user = (User)JSONObject.toBean(jo,User.class);
+		}
 		
-		loginByTokenPanel = new LoginByToken();
-		
-		//先进入LoginPanel页面
-		Main.setCurrentPanel(loginByTokenPanel);
+		if(user!=null && user.isLogin==true){
+			userUI = new UI.User();
+			//如果登录直接进入工程列表
+			mainPanel.setContentPane(new WorkSpaceList());
+		}else{
+			loginByTokenPanel = new LoginByToken();
+			//先进入LoginPanel页面
+			Main.setCurrentPanel(loginByTokenPanel);
+		}
 		
 		
 		mainPanel.show();
@@ -47,6 +65,8 @@ public class Main {
 	 */
 	public static void LoginSuccess(){
 		System.out.println("------------------------");
+		String strUser = JSONObject.fromObject(Main.user).toString();
+		FileOperate.writeFile(Util.Util.getIconFilePath("/data/user.data"),strUser);
 		userUI = new UI.User();
 		mainPanel.setContentPane(new WorkSpaceList());
 		

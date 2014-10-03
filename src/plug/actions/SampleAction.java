@@ -79,8 +79,8 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
         	System.out.print("===========");
         }
         System.out.println();
-        Main main = new Main();
-        main.programList = arrayList;
+        Main main = new Main(arrayList);
+        //main.programList = arrayList;
 	}
 
 	/**

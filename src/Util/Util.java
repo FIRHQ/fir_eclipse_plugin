@@ -1,6 +1,12 @@
 package Util;
 
 import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+
+import org.eclipse.core.runtime.FileLocator;
+import org.eclipse.core.runtime.Platform;
+import org.osgi.framework.Bundle;
 
 public class Util {
 	/**
@@ -48,5 +54,24 @@ public class Util {
 			}
 		}
 		return path;
+	}
+	
+	/**
+	 * 获取工程文件的路径
+	 * @param path
+	 * @return
+	 */
+	public static URL getIconFilePath(String path){
+		String mPath = null;
+		String bundleName = "fir.im.eclipse.plug";
+		Bundle bundle = Platform.getBundle(bundleName); 
+		URL url = bundle.getEntry(path);
+		try {
+			url = FileLocator.toFileURL(url);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return url;
 	}
 }
