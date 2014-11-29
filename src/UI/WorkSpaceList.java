@@ -38,6 +38,7 @@ public class WorkSpaceList extends JPanel implements ListSelectionListener {
 	private void initList(){
 		
         ArrayList<ListModel> fonts=new ArrayList<ListModel>();  
+        System.out.print(Main.programList.size());
 		for(File f : Main.programList){
 			fonts.add(new ListModel(new Font("Cambria",Font.BOLD,20),f.getName(),f)); 
 		}

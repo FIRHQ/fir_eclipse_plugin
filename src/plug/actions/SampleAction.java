@@ -48,7 +48,6 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 	/**
 	 * The constructor.
 	 */
-    ArrayList<File> arrayList = new ArrayList();
     Main main;
 	public SampleAction() {
 	}
@@ -64,6 +63,7 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 //			window.getShell(),
 //			"Plug",
 //			"Hello, Eclipse world"); 
+		ArrayList<File> arrayList = new ArrayList();
         IProject[] projects = getCurrentProject();
         for(int i=0;i<projects.length;i++){
         	IProject _ip = projects[i];
@@ -79,8 +79,10 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
         	System.out.print("===========");
         }
         System.out.println();
-        if(main == null)
+        if(main == null){
+        	System.out.print("close..........");
         	main = new Main(arrayList);
+        }
         else if(!main.mainPanel.isShowing()){
         	main.mainPanel.show();
         }else{

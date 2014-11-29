@@ -54,6 +54,7 @@ public class Main implements FocusListener{
 		
 		if(user!=null && user.isLogin==true){
 			userUI = new UI.User();
+			System.out.print("工程列表");
 			//如果登录直接进入工程列表
 			mainPanel.setContentPane(new WorkSpaceList());
 		}else{
