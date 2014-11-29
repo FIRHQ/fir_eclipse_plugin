@@ -30,6 +30,7 @@ public class Main implements FocusListener{
 	public static User user = null;
 	public static InfoDialog mainPanel = null;
 	public static UI.User userUI = null;
+	public static ParseApp app= null;
 	//当前eclispe环境下的工程
 	public static ArrayList<File> programList = new ArrayList();
 	

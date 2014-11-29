@@ -21,6 +21,7 @@ public class ParseApp {
 	private String appName = "";
 	private String appIcon = "";
 	private String appVersion = "";
+	public String appShort = "";
 	
 	private File resFile = null;
 	public String getAppid() {
@@ -69,6 +70,7 @@ public class ParseApp {
 			e.printStackTrace();
 		}
 	}
+	
 	
 	private File getAndriodManifestFile(){
 		File andMenFile = null;
@@ -237,5 +239,19 @@ public class ParseApp {
 		
 	}
 	
+	public File getApk(){
+		File binFile =  getFile(file,"bin");
+		File apkFile = null;
+		File[] files = binFile.listFiles();
+		for (File file : files) {
+			System.out.println(file.getName());
+			String name = file.getName();
+			if(name.toLowerCase().indexOf(".apk")>=0){
+				apkFile = file;
+			}
+			
+		}
+		return apkFile;
+	}
 	
 }

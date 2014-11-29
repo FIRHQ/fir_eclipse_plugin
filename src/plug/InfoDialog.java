@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -32,7 +33,7 @@ import net.sf.json.JSONObject;
  * Window - Preferences - Java - Code Style - Code Templates
  */
 
-public class InfoDialog extends JDialog implements ActionListener,FocusListener
+public class InfoDialog extends JFrame implements ActionListener,FocusListener
 {
     
     String city="";
@@ -74,10 +75,15 @@ public class InfoDialog extends JDialog implements ActionListener,FocusListener
         Dimension d = tk.getScreenSize();
         this.setSize(400, 335);
         this.setLocation((int) (d.getWidth() - this.getWidth()) / 2, (int) (d.getHeight() - this.getHeight()) / 2);  
-       // this.setLocation(400, 400);
         //initialize();
-        this.addFocusListener(this);
-
+        this.addWindowListener(new java.awt.event.WindowAdapter()
+        {
+           public void windowDeactivated(WindowEvent e)
+           {
+        	  InfoDialog.this.hide();
+              System.out.println("失去焦点关闭...");
+            }
+        });
     }
     /**
      * This method initializes this
@@ -86,48 +92,7 @@ public class InfoDialog extends JDialog implements ActionListener,FocusListener
      */
     private void initialize() 
     {
-
-        this.setContentPane(new LoginByToken());
-//        initUser();
-//        
-//        initPanel();
-//        initAppInfoPanel();
-//        initLoginPanel();
-//        initUserInfoPanel();
-//        //监听事件
-//        addListioner();
-        
-
-//        JLabel jlable_token = new JLabel("开发者Token");
-//        jt = new JTextArea(20,20);
-//        jt.setBorder (BorderFactory.createEmptyBorder (1,1,1,5));
-//        jt.setColumns (30); 
-//        jt.setRows (0);
-//        this.mailPanel.add(jlable_token);
-//        this.mailPanel.add(jt);
-//        jbtn = new JButton("确定");
-//        this.mailPanel.add(jbtn);
-//        jbtn.addActionListener(this);
-//        
-//        absolutPathJa = new JTextArea(20,20);
-//        absolutPathJa.setBorder (BorderFactory.createEmptyBorder (1,1,1,5));
-//        absolutPathJa.setColumns (30); 
-//        absolutPathJa.setRows (0);
-//        JLabel jlable_path = new JLabel("apk的path");
-//        jlable_path.setLocation(0,100);
-//        this.mailPanel.add(jlable_path);
-//        this.mailPanel.add(absolutPathJa);
-//        absouJbtn = new JButton("Ok");
-//        this.mailPanel.add(absouJbtn);
-//        absouJbtn.addActionListener(this);
-//        
-//        String _url = upLoad_url.replace("[appid]", "a.b.c");
-//        _url = _url.replace("[token]", "token");
-//        String sr=HttpRequest.sendGet(_url,"");
-//        
-//        JSONObject jsonObject = JSONObject.fromString(sr);
-        
-        
+        this.setContentPane(new LoginByToken());       
     }
     
     /**
