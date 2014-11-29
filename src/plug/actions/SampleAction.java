@@ -49,7 +49,7 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 	 * The constructor.
 	 */
     ArrayList<File> arrayList = new ArrayList();
-    
+    Main main;
 	public SampleAction() {
 	}
 
@@ -79,7 +79,14 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
         	System.out.print("===========");
         }
         System.out.println();
-        Main main = new Main(arrayList);
+        if(main == null)
+        	main = new Main(arrayList);
+        else if(!main.mainPanel.isShowing()){
+        	main.mainPanel.show();
+        }else{
+        	main.mainPanel.hide();
+        }
+        	
         //main.programList = arrayList;
 	}
 
@@ -91,6 +98,7 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 	 * @see IWorkbenchWindowActionDelegate#selectionChanged
 	 */
 	public void selectionChanged(IAction action, ISelection selection) {
+		System.out.println("[[[[[[[[[[[[[");
      }
 
 	/**

@@ -1,5 +1,7 @@
 package main;
 
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -24,7 +26,7 @@ import model.User;
  * @author will
  *
  */
-public class Main {
+public class Main implements FocusListener{
 	public static User user = null;
 	public static InfoDialog mainPanel = null;
 	public static UI.User userUI = null;
@@ -32,6 +34,8 @@ public class Main {
 	public static ArrayList<File> programList = new ArrayList();
 	
 	private LoginByToken loginByTokenPanel = null;
+	
+	public Boolean isShow = false;
 	public Main(ArrayList<File> pl){
 		this.programList = pl;
 		init();
@@ -40,6 +44,7 @@ public class Main {
 	public void init(){
 		user = new User();
 		mainPanel = new InfoDialog();
+		mainPanel.addFocusListener(this);
 		String data = FileOperate.readFileByLines(Util.Util.getIconFilePath("/data/user.data"));
 		if(!data.isEmpty()){
 			JSONObject  jo = JSONObject.fromString(data);
@@ -87,6 +92,18 @@ public class Main {
 	 */
 	public static void selectApp(String path){
 		Main.setCurrentPanel(new AppUI(path));
+	}
+
+	@Override
+	public void focusGained(FocusEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void focusLost(FocusEvent e) {
+		// TODO Auto-generated method stub
+		System.out.println("...........失去焦点了");
 	}
 	
 }

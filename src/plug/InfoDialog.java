@@ -1,10 +1,14 @@
 
 package plug;
 
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -28,7 +32,7 @@ import net.sf.json.JSONObject;
  * Window - Preferences - Java - Code Style - Code Templates
  */
 
-public class InfoDialog extends JDialog implements ActionListener
+public class InfoDialog extends JDialog implements ActionListener,FocusListener
 {
     
     String city="";
@@ -66,8 +70,14 @@ public class InfoDialog extends JDialog implements ActionListener
     public InfoDialog() 
     {
         super();
+        Toolkit tk = Toolkit.getDefaultToolkit(); 
+        Dimension d = tk.getScreenSize();
         this.setSize(400, 335);
+        this.setLocation((int) (d.getWidth() - this.getWidth()) / 2, (int) (d.getHeight() - this.getHeight()) / 2);  
+       // this.setLocation(400, 400);
         //initialize();
+        this.addFocusListener(this);
+
     }
     /**
      * This method initializes this
@@ -242,6 +252,17 @@ public class InfoDialog extends JDialog implements ActionListener
         }
         
         
+	}
+	@Override
+	public void focusGained(FocusEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void focusLost(FocusEvent e) {
+		// TODO Auto-generated method stub
+		System.out.println("失去焦点。。。。。。。。。");
+		this.hide();
 	}
 	
  
