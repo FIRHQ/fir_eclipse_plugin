@@ -27,7 +27,7 @@ public class WorkSpaceList extends JPanel implements ListSelectionListener {
 	
 	private JScrollPane jp1 = null;
 	private JPanel jp2 = null;
-	private DefaultListModel<String> listModel = new DefaultListModel();
+	private DefaultListModel listModel = new DefaultListModel();
 	private JList jList = null;
 	public WorkSpaceList(){
 		super();
@@ -59,7 +59,8 @@ public class WorkSpaceList extends JPanel implements ListSelectionListener {
         //jList.setSelectedIndex(index);
         Point p = jList.indexToLocation(index);
         JScrollBar jScrollBar = jp1.getVerticalScrollBar();//获得垂直滚动条  
-        jScrollBar.setValue(p.y);//设置垂直滚动条位置
+        if(p!=null)
+        	jScrollBar.setValue(p.y);//设置垂直滚动条位置
 		this.add(jp1);
 		jp2 = new JPanel();
 		jp2.add(Main.userUI);

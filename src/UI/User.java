@@ -24,22 +24,28 @@ public class User extends JPanel  implements ActionListener{
 	}
 	
 	private void init(){
-		try {
-			this.userAvatarIcon = new ImageIcon(new URL(Main.user.avatar));
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	this.imageLabel = new JLabel();
-    	this.imageLabel.setSize(30, 30);
-    	this.imageLabel.setBounds(0,0,20,20);
-    	this.imageLabel.setIcon(this.userAvatarIcon);
-    	this.userAvatarIcon.setImage(this.userAvatarIcon.getImage().getScaledInstance(50, 50,
-    		    Image.SCALE_DEFAULT));
-    	this.add(this.imageLabel);
-    	
-    	this.userName = new JLabel(Main.user.name);
-    	this.add(this.userName);
+    	new Thread(){
+    		public void run(){
+    			System.out.print("user..........");
+    			try {
+    				User.this.userAvatarIcon = new ImageIcon(new URL(Main.user.avatar));
+    			} catch (MalformedURLException e) {
+    				// TODO Auto-generated catch block
+    				e.printStackTrace();
+    			}
+    			User.this.imageLabel = new JLabel();
+    			User.this.imageLabel.setSize(30, 30);
+    			User.this.imageLabel.setBounds(0,0,20,20);
+    			User.this.imageLabel.setIcon(User.this.userAvatarIcon);
+    			User.this.userAvatarIcon.setImage(User.this.userAvatarIcon.getImage().getScaledInstance(50, 50,
+    	    		    Image.SCALE_DEFAULT));
+    			User.this.add(User.this.imageLabel);
+    	    	System.out.print("user..........1");
+    	    	User.this.userName = new JLabel(Main.user.name);
+    	    	User.this.add(User.this.userName);
+    	    	User.this.updateUI();
+    		}
+    	}.start();
     	
     	changePanel = new JButton("回到上一层");
     	this.add(changePanel);
