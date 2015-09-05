@@ -13,8 +13,12 @@ import net.sf.json.JSONSerializer;
 
 import org.eclipse.core.runtime.Platform;
 
+import com.sun.awt.AWTUtilities;
+
 import UI.AppUI;
 import UI.LoginByToken;
+import UI.UploadUI;
+import UI.UploadUI;
 import UI.WorkSpaceList;
 import Util.FileOperate;
 import Util.ParseApp;
@@ -31,20 +35,40 @@ public class Main implements FocusListener{
 	public static InfoDialog mainPanel = null;
 	public static UI.User userUI = null;
 	public static ParseApp app= null;
+	Boolean _transparency = false;
 	//当前eclispe环境下的工程
 	public static ArrayList<File> programList = new ArrayList();
-	
+	public static final String OS = System.getProperty("os.name");
 	private LoginByToken loginByTokenPanel = null;
 	
 	public Boolean isShow = false;
+	private boolean supportsTransparency(String osName) {
+		return ((osName != null) && (!(osName.contains("nix")))
+				&& (!(osName.contains("nux"))) && (!(osName.contains("aix"))));
+	}
 	public Main(ArrayList<File> pl){
 		this.programList = pl;
+		
+		try {
+			Class.forName("com.sun.awt.AWTUtilities");
+
+			if ((supportsTransparency(OS))
+					&& (AWTUtilities
+							.isTranslucencySupported(AWTUtilities.Translucency.PERPIXEL_TRANSLUCENT))) {
+				this._transparency = true;
+			} else
+				throw new UnsupportedOperationException(
+						"Translucency Unsupported");
+		} catch (Exception e) {
+			this._transparency = false;
+		}
 		init();
 	}
 	
 	public void init(){
 		user = new User();
 		mainPanel = new InfoDialog();
+		AWTUtilities.setWindowOpaque(mainPanel, false);
 		mainPanel.addFocusListener(this);
 		String data = FileOperate.readFileByLines(Util.Util.getIconFilePath("/data/user.data"));
 		if(!data.isEmpty()){
@@ -52,19 +76,19 @@ public class Main implements FocusListener{
 			user = (User)JSONObject.toBean(jo,User.class);
 		}
 		
-		if(user!=null && user.isLogin==true){
-			userUI = new UI.User();
-			System.out.print("工程列表");
-			//如果登录直接进入工程列表
-			mainPanel.setContentPane(new WorkSpaceList());
-		}else{
-			loginByTokenPanel = new LoginByToken();
-			//先进入LoginPanel页面
-			Main.setCurrentPanel(loginByTokenPanel);
-		}
-		
-		
-		mainPanel.show();
+//		if(user!=null && user.isLogin==true){
+//			userUI = new UI.User();
+//			System.out.print("工程列表");
+//			//如果登录直接进入工程列表
+//			mainPanel.setContentPane(new WorkSpaceList());
+//		}else{
+//			loginByTokenPanel = new LoginByToken();
+//			//先进入LoginPanel页面
+//			Main.setCurrentPanel(loginByTokenPanel);
+//		}
+//		
+		Main.setCurrentPanel(new UploadUI());
+//		mainPanel.show();
 	}
 	
 	/**

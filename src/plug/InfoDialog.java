@@ -62,7 +62,7 @@ public class InfoDialog extends JFrame implements ActionListener,FocusListener
     private JLabel imageLabel = null;
     private JLabel userEmailLabel = null;
     private JLabel userIdLabel = null;
-    
+    public static InfoDialog infoDialog;
     private User user = null;
     /**
      * This method initializes 
@@ -71,10 +71,12 @@ public class InfoDialog extends JFrame implements ActionListener,FocusListener
     public InfoDialog() 
     {
         super();
+        infoDialog = this;
         Toolkit tk = Toolkit.getDefaultToolkit(); 
         Dimension d = tk.getScreenSize();
-        this.setSize(400, 335);
+        this.setSize(322, 335);
         this.setLocation((int) (d.getWidth() - this.getWidth()) / 2, (int) (d.getHeight() - this.getHeight()) / 2);  
+        this.setUndecorated(true);
         //initialize();
         this.addWindowListener(new java.awt.event.WindowAdapter()
         {
@@ -95,6 +97,9 @@ public class InfoDialog extends JFrame implements ActionListener,FocusListener
         this.setContentPane(new LoginByToken());       
     }
     
+    public static InfoDialog getInstance(){
+    	return infoDialog;
+    }
     /**
      *初始化用户
      */
