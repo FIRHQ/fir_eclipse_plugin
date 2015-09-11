@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: NewFirPlugin
 Bundle-SymbolicName: fir.im.plugin.eclipse;singleton:=true
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 1.2.2.qualifier
 Bundle-Activator: fir.im.plugin.Activator
 Bundle-Vendor: Will
 Require-Bundle: org.eclipse.ui,

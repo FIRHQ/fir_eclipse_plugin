@@ -33,6 +33,7 @@ public class FirAction implements IWorkbenchWindowActionDelegate {
 	public void run(IAction action) {
 		
 		FirDialog.getInstance().setVisible(true);
+		FirDialog.getInstance().setIdeEnvironmentEclipse(true);
 	}
 
 	/**
