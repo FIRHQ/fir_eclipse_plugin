@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: NewFirPlugin
+Bundle-Name: FirEclipsePlugin
 Bundle-SymbolicName: fir.im.plugin.eclipse;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: fir.im.plugin.Activator

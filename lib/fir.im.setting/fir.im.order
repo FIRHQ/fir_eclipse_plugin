@@ -1,0 +1,1 @@
+ keytool -genkey -alias fir.im -keypass fir.im2015 -keyalg RSA -keysize 1024 -validity 365 -keystore fir.im.keystore -storepass fir.im2015
