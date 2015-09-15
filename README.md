@@ -18,3 +18,6 @@
 >       --> 先填写[api_token](http://fir.im/apps)
 >       --> 之后单机上传
 
+## 提交反馈
+> [使用 github issue 即可](https://github.com/FIRHQ/fir_eclipse_plugin/issues/new)
+
