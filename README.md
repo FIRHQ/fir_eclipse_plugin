@@ -4,7 +4,7 @@
 
 > 		--> Help 
 > 		--> Install New Software
-> 		--> 填写上 http://121.201.63.30/
+> 		--> 填写上下载地址<http://121.201.63.30/>
 > 		--> 选中fir.im.category
 > 		--> 安装弹出证书认证选择允许继续
 > 		--> finish
@@ -22,7 +22,6 @@
 > [使用 github issue 即可](https://github.com/FIRHQ/fir_eclipse_plugin/issues/new)
 
 ## 截屏描述
-
 
 <img width='700px' src='http://ww4.sinaimg.cn/mw690/950b8603gw1ew3akgt9byj20vg0lh40p.jpg' alt='选择install new software' />
 

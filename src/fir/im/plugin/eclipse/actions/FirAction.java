@@ -7,6 +7,7 @@ import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 import org.eclipse.jface.dialogs.MessageDialog;
 
 import fir.im.dialog.FirDialog;
+import fir.im.utils.Provider;
 
 /**
  * Our sample action implements workbench action delegate.
@@ -34,6 +35,7 @@ public class FirAction implements IWorkbenchWindowActionDelegate {
 		
 		FirDialog.getInstance().setVisible(true);
 		FirDialog.getInstance().setIdeEnvironmentEclipse(true);
+		Provider.getInstance().setProviderIde("eclipse");
 	}
 
 	/**
