@@ -1,4 +1,8 @@
 # Fir_Eclipse_Plugin
+## 更新日志
+>		-->1.0.0released - 基本的上传功能
+>		-->1.0.1released - 修改上传icon的bug
+
 
 ## 安装
 
